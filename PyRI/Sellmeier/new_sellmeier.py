@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 def LoadSellmeier(url):
 
     page = requests.get(url)
-    assert page.status_code != 404, "There is no formula at the URL you have entered!"
+    assert page.status_code != 404, "No formula found at the given URL"
     soup = BeautifulSoup(page.content, 'html.parser')
     formulas = soup.find_all("code")
     sellmeier = str(formulas[1])[8:-7]

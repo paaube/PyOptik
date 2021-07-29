@@ -26,7 +26,7 @@ def LoadOnline(url):
 
 def SaveData(url, filename, unit=1e-6):
     dict_data = LoadOnline(url)
-    directory = os.path.join('../Data/npz', filename)
+    directory = os.path.join('PyRI/Data/npz', filename)
 
     if 'k' not in dict_data:
         np.savez(directory,
@@ -40,9 +40,9 @@ def SaveData(url, filename, unit=1e-6):
                  k=dict_data['k']
                  )
 
-    with open(os.path.join('../Data', 'Meta.json'), 'r+') as f:
+    with open(os.path.join('PyRI/Data', 'Meta.json'), 'r+') as f:
         META = json.load(f)
-        META['remote'][filename] = url
-        META['local'][filename] = filename + '.npz'
+        META['remote_data'][filename] = url
+        META['local_data'][filename] = filename + '.npz'
         f.seek(0)
         json.dump(META, f, indent=4)

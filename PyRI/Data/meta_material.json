@@ -1,0 +1,8 @@
+{
+    "remote_data": {
+        "Silver": "https://refractiveindex.info/data_csv.php?datafile=data/main/Ag/Johnson.yml"
+    },
+    "local_data": {
+        "Silver": "Silver.npz"
+    }
+}

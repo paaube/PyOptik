@@ -18,15 +18,34 @@ class Material:
         self.DirFilename = meta_material["local_data"][name]
         self.ExpData = np.load("PyRI/Data/npz/" + self.DirFilename)
 
-    def GetRI(wl):
-        if float(self.ExpData['wl_n'][0]) <= wl <= float(self.ExpData['wl_n'][-1]):
-            if wl in self.ExpData['wl_n']:
-                list_data = list(self.ExpData['wl_n'])
-                index = list_data.index(wl)
-                return float(self.ExpData['n'][index])
-            else:
+    def GetRI(self, wl):
+        assert float(self.ExpData['wl_n'][0]) <= wl <= float(self.ExpData['wl_n'][-1]),\
+            "The wavelength value you entered is out of range. True using GetSellmeier "\
+            "to use the formula. You can refer to the documentation: "\
+            # TO DO: update the URL
+        "https://URL"
 
-    def GetCoefficient(wl):
+        if wl in self.ExpData['wl_n']:
+            list_wl = list(self.ExpData['wl_n'])
+            wl_index = list_wl.index(wl)
+
+            return float(self.ExpData['n'][wl_index])
+
+        else:
+            ind_count = 0
+            wl_inf = self.ExpData['wl_n'][ind_count]
+            while wl_inf < wl:
+                ind_count += 1
+                wl_inf = self.ExpData['wl_n'][ind_count]
+            wl_inf = self.ExpData['wl_n'][(ind_count-1)]
+            wl_sup = self.ExpData['wl_n'][ind_count]
+            ratio = (wl - wl_inf)/(wl_sup - wl_inf)
+
+            n_inf = self.ExpData['n'][(ind_count-1)]
+            n_sup = self.ExpData['n'][ind_count]
+            wl = n_inf+((n_sup-n_inf)*ratio)
+
+            return wl
 
     def __repr__(self):
         return self.__name__

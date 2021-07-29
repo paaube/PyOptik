@@ -19,11 +19,13 @@ class Material:
         self.ExpData = np.load("PyRI/Data/npz/" + self.DirFilename)
 
     def GetRI(self, wl):
-        assert float(self.ExpData['wl_n'][0]) <= wl <= float(self.ExpData['wl_n'][-1]),\
-            "The wavelength value you entered is out of range. True using GetSellmeier "\
-            "to use the formula. You can refer to the documentation: "\
+        min_wl = float(self.ExpData['wl_n'][0])
+        max_wl = float(self.ExpData['wl_n'][-1])
+        assert min_wl <= wl <= max_wl,\
+            "The wavelength value you entered is out of range. Try using "\
+            "GetSellmeier to use the formula. You can refer to the "\
             # TO DO: update the URL
-        "https://URL"
+        "documentation: https://URL"
 
         if wl in self.ExpData['wl_n']:
             list_wl = list(self.ExpData['wl_n'])
@@ -46,6 +48,8 @@ class Material:
             wl = n_inf+((n_sup-n_inf)*ratio)
 
             return wl
+
+    def GetEC(self, wl):
 
     def __repr__(self):
         return self.__name__

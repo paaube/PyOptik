@@ -7,6 +7,7 @@ be used for different applications like simulating light interaction's with
 particules. All the data comes from RefractiveIndex.INFO.
 
 Throughout the library, a few key acronyms are used:
+
 * wl: wavelength
 * ri: refractive indexe
 * ec: extinction coefficient

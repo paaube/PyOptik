@@ -9,5 +9,5 @@ particules. All the data comes from RefractiveIndex.INFO.
 Throughout the library, a few key acronyms are used:
 
 * wl: wavelength
-* ri: refractive indexe
+* ri: refractive index
 * ec: extinction coefficient

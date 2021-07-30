@@ -45,11 +45,43 @@ class Material:
 
             n_inf = self.ExpData['n'][(ind_count-1)]
             n_sup = self.ExpData['n'][ind_count]
-            wl = n_inf+((n_sup-n_inf)*ratio)
+            n = n_inf+((n_sup-n_inf)*ratio)
 
-            return wl
+            return float(n)
 
     def GetEC(self, wl):
+        assert 'wl_k' in self.ExpData, "Extinction coefficient unavailable "\
+            "for this material."
+
+        min_wl = float(self.ExpData['wl_k'][0])
+        max_wl = float(self.ExpData['wl_k'][-1])
+        assert min_wl <= wl <= max_wl,\
+            "The wavelength value you entered is out of range. Try using "\
+            "GetSellmeier to use the formula. You can refer to the "\
+            # TO DO: update the URL
+        "documentation: https://URL"
+
+        if wl in self.ExpData['wl_k']:
+            list_wl = list(self.ExpData['wl_k'])
+            wl_index = list_wl.index(wl)
+
+            return float(self.ExpData['k'][wl_index])
+
+        else:
+            ind_count = 0
+            wl_inf = self.ExpData['wl_k'][ind_count]
+            while wl_inf < wl:
+                ind_count += 1
+                wl_inf = self.ExpData['wl_k'][ind_count]
+            wl_inf = self.ExpData['wl_k'][(ind_count-1)]
+            wl_sup = self.ExpData['wl_k'][ind_count]
+            ratio = (wl - wl_inf)/(wl_sup - wl_inf)
+
+            n_inf = self.ExpData['k'][(ind_count-1)]
+            n_sup = self.ExpData['k'][ind_count]
+            n = n_inf+((n_sup-n_inf)*ratio)
+
+            return float(n)
 
     def __repr__(self):
         return self.__name__

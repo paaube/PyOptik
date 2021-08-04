@@ -11,9 +11,9 @@ class Material:
             meta_material = json.load(f)
             assert name in meta_material["local_data"],\
                 "Material not in the local bank. "\
-                "Please refer to Documentation Material section: "\
+                "To add it, visit the Material section of the documentation: "\
                 # TO DO: update the URL
-            "https://pymiesim.readthedocs.io/en/latest/Material.html"
+            "https://"
 
         self.DirFilename = meta_material["local_data"][name]
         self.ExpData = np.load("PyRI/Data/npz/" + self.DirFilename)
@@ -23,7 +23,7 @@ class Material:
         max_wl = float(self.ExpData['wl_n'][-1])
         assert min_wl <= wl <= max_wl,\
             "The wavelength value you entered is out of range. Try using "\
-            "GetSellmeier to use the formula. You can refer to the "\
+            "GetSellmeier to use the formula or refer to the "\
             # TO DO: update the URL
         "documentation: https://URL"
 
@@ -51,13 +51,13 @@ class Material:
 
     def GetEC(self, wl):
         assert 'wl_k' in self.ExpData, "Extinction coefficient unavailable "\
-            "for this material."
+            "for this material on RefractiveIndex.INFO"
 
         min_wl = float(self.ExpData['wl_k'][0])
         max_wl = float(self.ExpData['wl_k'][-1])
         assert min_wl <= wl <= max_wl,\
             "The wavelength value you entered is out of range. Try using "\
-            "GetSellmeier to use the formula. You can refer to the "\
+            "GetSellmeier to use the formula or refer to the "\
             # TO DO: update the URL
         "documentation: https://URL"
 

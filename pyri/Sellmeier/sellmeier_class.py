@@ -20,7 +20,8 @@ class Sellmeier:
             assert name in META['local_sellmeier'],\
                 "Material {name} not in the local sellmeier bank"\
                 "Please refer to Documentation Material section"\
-                "https://pymiesim.readthedocs.io/en/latest/Material.html"
+                # TODO: update the URL
+            "https://URL"
 
     def __repr__(self):
         return self.__name__

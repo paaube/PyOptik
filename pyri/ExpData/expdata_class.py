@@ -2,23 +2,36 @@ import json
 import numpy as np
 
 
-class Material:
+class ExpData:
+    """The ExpData class is used to import experimental data from the locally
+    saved data.
+
+    Arguments:
+    name -- the name of the material you wish to import
+    """
+
     def __init__(self, name):
         self._Data = None
         self.__name__ = name
 
-        with open("PyRI/Data/meta_material.json", 'r+') as f:
-            meta_material = json.load(f)
-            assert name in meta_material["local_data"],\
+        with open("pyri/Data/meta_expdata.json", 'r+') as f:
+            meta_expdata = json.load(f)
+            assert name in meta_expdata["local_data"],\
                 "Material not in the local bank. "\
                 "To add it, visit the Material section of the documentation: "\
                 # TO DO: update the URL
             "https://"
 
-        self.DirFilename = meta_material["local_data"][name]
-        self.ExpData = np.load("PyRI/Data/npz/" + self.DirFilename)
+        self.DirFilename = meta_expdata["local_data"][name]
+        self.ExpData = np.load("pyri/Data/npz/" + self.DirFilename)
 
-    def GetRI(self, wl):
+    def get_ri(self, wl):
+        """Returns the refractive index of the material given the wavelength
+        used.
+
+        Arguments:
+        wl -- wavelength
+        """
         min_wl = float(self.ExpData['wl_n'][0])
         max_wl = float(self.ExpData['wl_n'][-1])
         assert min_wl <= wl <= max_wl,\
@@ -49,7 +62,13 @@ class Material:
 
             return float(n)
 
-    def GetEC(self, wl):
+    def get_ec(self, wl):
+        """Returns the extinction coefficient of the material given the
+        wavelength used.
+
+        Arguments:
+        wl -- wavelength
+        """
         assert 'wl_k' in self.ExpData, "Extinction coefficient unavailable "\
             "for this material on RefractiveIndex.INFO"
 

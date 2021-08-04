@@ -4,8 +4,12 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def LoadSellmeier(url):
+def load_sellmeier(url):
+    """Loads Sellmeier's formula from RefractiveIndex.INFO.
 
+    Arguments:
+    url -- link to the material's formula page
+    """
     page = requests.get(url)
     assert page.status_code != 404, "No formula found at the given URL"
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -17,12 +21,19 @@ def LoadSellmeier(url):
     return(sellmeier)
 
 
-def SaveSellmeier(url, filename):
-    sellmeier = LoadSellmeier(url)
+def save_sellmeier(url, filename):
+    """Loads and saves Sellmeier's formula from RefractiveIndex.INFO in a
+    json file.
 
-    with open(os.path.join('../Data', 'Meta.json'), 'r+') as f:
+    Arguments:
+    url -- link to the material's formula page
+    filename -- name of the material used as the index in the json file
+    """
+    sellmeier = load_sellmeier(url)
+
+    with open(os.path.join('pyri/Data', 'meta_sellmeier.json'), 'r+') as f:
         META = json.load(f)
         META['remote_sellmeier'][filename] = url
-        META['local_sellmeier'][filename] = sellmeier
+        META['sellmeier_formula'][filename] = sellmeier
         f.seek(0)
         json.dump(META, f, indent=4)

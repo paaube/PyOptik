@@ -4,7 +4,13 @@ import pandas as pd
 import numpy as np
 
 
-def LoadOnline(url):
+def load_online(url):
+    """Loads the data from RefractiveIndex.INFO and returns it as a
+    dictionary.
+
+    Arguments:
+    url -- link to the csv file from RefractiveIndex.INFO
+    """
     df = pd.read_csv(url)
     df = df.to_numpy()
 
@@ -24,9 +30,15 @@ def LoadOnline(url):
     return data
 
 
-def SaveData(url, filename, unit=1e-6):
-    dict_data = LoadOnline(url)
-    directory = os.path.join('PyRI/Data/npz', filename)
+def save_data(url, filename, unit=1e-6):
+    """Loads the data from RefractiveIndex.INFO and saves it in a json file.
+
+    Arguments:
+    url -- link to the csv file from RefractiveIndex.INFO
+    filename -- name of the material used as the index in the json file
+    """
+    dict_data = load_online(url)
+    directory = os.path.join('pyri/Data/npz', filename)
 
     if 'k' not in dict_data:
         np.savez(directory,
@@ -37,10 +49,9 @@ def SaveData(url, filename, unit=1e-6):
                  wl_n=dict_data['wl_n'] * unit,
                  n=dict_data['n'],
                  wl_k=dict_data['wl_k'] * unit,
-                 k=dict_data['k']
-                 )
+                 k=dict_data['k'])
 
-    with open(os.path.join('PyRI/Data', 'Meta.json'), 'r+') as f:
+    with open(os.path.join('pyri/Data', 'meta_expdata.json'), 'r+') as f:
         META = json.load(f)
         META['remote_data'][filename] = url
         META['local_data'][filename] = filename + '.npz'

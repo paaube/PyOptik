@@ -52,8 +52,8 @@ def save_data(url, filename, unit=1e-6):
                  k=dict_data['k'])
 
     with open(os.path.join('pyri/Data', 'meta_expdata.json'), 'r+') as f:
-        META = json.load(f)
-        META['remote_data'][filename] = url
-        META['local_data'][filename] = filename + '.npz'
+        meta_expdata = json.load(f)
+        meta_expdata['remote_data'][filename] = url
+        meta_expdata['local_data'][filename] = filename + '.npz'
         f.seek(0)
-        json.dump(META, f, indent=4)
+        json.dump(meta_expdata, f, indent=4)

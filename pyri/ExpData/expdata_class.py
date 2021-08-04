@@ -14,10 +14,10 @@ class ExpData:
         self._Data = None
         self.__name__ = name
 
-        with open("pyri/Data/meta_expdata.json", 'r+') as f:
+        with open('pyri/Data/meta_expdata.json', 'r+') as f:
             meta_expdata = json.load(f)
             assert name in meta_expdata["local_data"],\
-                "Material not in the local bank. "\
+                "Material not in the local data bank. "\
                 "To add it, visit the Material section of the documentation: "\
                 # TO DO: update the URL
             "https://"
@@ -26,8 +26,8 @@ class ExpData:
         self.ExpData = np.load("pyri/Data/npz/" + self.DirFilename)
 
     def get_ri(self, wl):
-        """Returns the refractive index of the material given the wavelength
-        used.
+        """Returns the refractive index of the material from the experimental
+        data given the wavelength used.
 
         Arguments:
         wl -- wavelength
@@ -63,8 +63,8 @@ class ExpData:
             return float(n)
 
     def get_ec(self, wl):
-        """Returns the extinction coefficient of the material given the
-        wavelength used.
+        """Returns the extinction coefficient of the material from the
+        experimental data given the wavelength used.
 
         Arguments:
         wl -- wavelength

@@ -1,5 +1,4 @@
 import json
-import os
 import requests
 from bs4 import BeautifulSoup
 
@@ -31,9 +30,9 @@ def save_sellmeier(url, filename):
     """
     sellmeier = load_sellmeier(url)
 
-    with open(os.path.join('pyri/Data', 'meta_sellmeier.json'), 'r+') as f:
-        META = json.load(f)
-        META['remote_sellmeier'][filename] = url
-        META['sellmeier_formula'][filename] = sellmeier
+    with open('pyri/Data/meta_sellmeier.json', 'r+') as f:
+        meta_sellmeier = json.load(f)
+        meta_sellmeier['remote_sellmeier'][filename] = url
+        meta_sellmeier['sellmeier_formula'][filename] = sellmeier
         f.seek(0)
-        json.dump(META, f, indent=4)
+        json.dump(meta_sellmeier, f, indent=4)

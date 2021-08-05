@@ -4,6 +4,9 @@ import json
 
 
 def data_bank():
+    """Returns the materials for which the experimental data is available
+    and the materials for which Sellmeier's formula is available
+    """
     with open("pyri/Data/meta_expdata.json", "r") as f:
         expdata = json.load(f)
         material_expdata = []

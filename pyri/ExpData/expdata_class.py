@@ -16,11 +16,9 @@ class ExpData:
 
         with open('pyri/Data/meta_expdata.json', 'r+') as f:
             meta_expdata = json.load(f)
-            assert name in meta_expdata["local_data"],\
-                "Material not in the local data bank. "\
-                "To add it, visit the Material section of the documentation: "\
-                # TO DO: update the URL
-            "https://"
+            assert name in meta_expdata['local_data'],\
+                "Material not in the local data bank."\
+                "To add it, visit the documentation."
 
         self.DirFilename = meta_expdata["local_data"][name]
         self.ExpData = np.load("pyri/Data/npz/" + self.DirFilename)
@@ -35,11 +33,8 @@ class ExpData:
         min_wl = float(self.ExpData['wl_n'][0])
         max_wl = float(self.ExpData['wl_n'][-1])
         assert min_wl <= wl <= max_wl,\
-            "The wavelength value you entered is out of range. Try using "\
-            "GetSellmeier to use the formula or refer to the "\
-            # TO DO: update the URL
-        "documentation: https://URL"
-
+            "The wavelength value you entered is out of range."\
+            "Visit the documentation to use Sellmeier's formula"
         if wl in self.ExpData['wl_n']:
             list_wl = list(self.ExpData['wl_n'])
             wl_index = list_wl.index(wl)
@@ -75,10 +70,7 @@ class ExpData:
         min_wl = float(self.ExpData['wl_k'][0])
         max_wl = float(self.ExpData['wl_k'][-1])
         assert min_wl <= wl <= max_wl,\
-            "The wavelength value you entered is out of range. Try using "\
-            "GetSellmeier to use the formula or refer to the "\
-            # TO DO: update the URL
-        "documentation: https://URL"
+            "The wavelength value you entered is out of range."
 
         if wl in self.ExpData['wl_k']:
             list_wl = list(self.ExpData['wl_k'])

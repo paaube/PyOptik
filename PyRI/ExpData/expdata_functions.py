@@ -30,15 +30,15 @@ def load_online(url):
     return data
 
 
-def save_data(url, filename, unit=1e-6):
+def save_data(url, name, unit=1e-6):
     """Loads the data from RefractiveIndex.INFO and saves it in a json file.
 
     Arguments:
     url -- link to the csv file from RefractiveIndex.INFO
-    filename -- name of the material used as the index in the json file
+    name -- name of the material used as the index in the json file
     """
     dict_data = load_online(url)
-    directory = os.path.join('pyri/Data/npz', filename)
+    directory = os.path.join('PyRI/Data/npz', name)
 
     if 'k' not in dict_data:
         np.savez(directory,
@@ -51,9 +51,24 @@ def save_data(url, filename, unit=1e-6):
                  wl_k=dict_data['wl_k'] * unit,
                  k=dict_data['k'])
 
-    with open(os.path.join('pyri/Data', 'meta_expdata.json'), 'r+') as f:
+    with open('PyRI/Data/meta_expdata.json', 'r+') as f:
         meta_expdata = json.load(f)
-        meta_expdata['remote_data'][filename] = url
-        meta_expdata['local_data'][filename] = filename + '.npz'
+        meta_expdata['remote_data'][name] = url
+        meta_expdata['local_data'][name] = name + '.npz'
         f.seek(0)
         json.dump(meta_expdata, f, indent=4)
+
+
+def remove_data(name):
+    """Removes the experimental data stored locally for a given material.
+
+    Arguments:
+    name -- name of the material to remove
+    """
+    os.remove(os.path.join('PyRI/Data/npz', name + '.npz'))
+    with open('PyRI/Data/meta_expdata.json', 'r+') as f:
+        meta_expdata = json.load(f)
+        del meta_expdata['remote_data'][name]
+        del meta_expdata['local_data'][name]
+    with open('PyRI/Data/meta_expdata.json', 'w') as f:
+        json.dump(meta_expdata, f)

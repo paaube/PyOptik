@@ -15,12 +15,10 @@ def load_sellmeier(url):
     formulas = soup.find_all("code")
     sellmeier = str(formulas[1])[8:-7]
 
-    assert "sudo" not in sellmeier, "Something dangerous happining here!"
-
     return(sellmeier)
 
 
-def save_sellmeier(url, filename):
+def save_sellmeier(url, name):
     """Loads and saves Sellmeier's formula from RefractiveIndex.INFO in a
     json file.
 
@@ -30,9 +28,23 @@ def save_sellmeier(url, filename):
     """
     sellmeier = load_sellmeier(url)
 
-    with open('pyri/Data/meta_sellmeier.json', 'r+') as f:
+    with open('PyRI/Data/meta_sellmeier.json', 'r+') as f:
         meta_sellmeier = json.load(f)
-        meta_sellmeier['remote_sellmeier'][filename] = url
-        meta_sellmeier['sellmeier_formula'][filename] = sellmeier
+        meta_sellmeier['remote_sellmeier'][name] = url
+        meta_sellmeier['sellmeier_formula'][name] = sellmeier
         f.seek(0)
         json.dump(meta_sellmeier, f, indent=4)
+
+
+def remove_sellmeier(name):
+    """Removes Sellmeier's formula stored locally for a given material.
+
+    Arguments:
+    name -- name of the material to remove
+    """
+    with open('PyRI/Data/meta_sellmeier.json', 'r+') as f:
+        meta_sellmeier = json.load(f)
+        del meta_sellmeier['remote_sellmeier'][name]
+        del meta_sellmeier['sellmeier_formula'][name]
+    with open('PyRI/Data/meta_sellmeier.json', 'w') as f:
+        json.dump(meta_sellmeier, f)

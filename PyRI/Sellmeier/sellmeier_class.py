@@ -12,7 +12,7 @@ class Sellmeier:
     def __init__(self, name):
         self.__name__ = name
 
-        with open('pyri/Data/meta_sellmeier.json', 'r+') as f:
+        with open('PyRI/Data/meta_sellmeier.json', 'r+') as f:
             meta_sellmeier = json.load(f)
             assert name in meta_sellmeier['sellmeier_formula'],\
                 "Material not in the local sellmeier bank."\

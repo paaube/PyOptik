@@ -14,14 +14,14 @@ class ExpData:
         self._Data = None
         self.__name__ = name
 
-        with open('pyri/Data/meta_expdata.json', 'r+') as f:
+        with open('PyRI/Data/meta_expdata.json', 'r+') as f:
             meta_expdata = json.load(f)
             assert name in meta_expdata['local_data'],\
                 "Material not in the local data bank."\
                 "To add it, visit the documentation."
 
         self.DirFilename = meta_expdata["local_data"][name]
-        self.ExpData = np.load("pyri/Data/npz/" + self.DirFilename)
+        self.ExpData = np.load("PyRI/Data/npz/" + self.DirFilename)
 
     def get_ri(self, wl):
         """Returns the refractive index of the material from the experimental

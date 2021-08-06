@@ -96,6 +96,12 @@ class ExpData:
             return float(n)
 
     def plot_expdata(self, ri=True, ec=False):
+        """Plots the experimental data of the material.
+
+        Arguments:
+        ri -- plot the refractive index as a function of the wavelength
+        ec -- plot the extinction coefficient as a function of the wavelength
+        """
         if ri and not ec:
             x_ri = self.ExpData['wl_n']
             y_ri = self.ExpData['n']

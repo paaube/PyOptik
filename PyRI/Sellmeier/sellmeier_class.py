@@ -1,4 +1,6 @@
 import json
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 class Sellmeier:
@@ -32,8 +34,34 @@ class Sellmeier:
 
         return(n)
 
-    def plot_sellmeier(name, min, max, nb_pts=100):
-        pass
+    def plot_sellmeier(self, min, max, nb_pts=100):
+        """Plots the refractive index as a function of the wavelength using
+        Sellmeier's formula.
+
+        Arguments:
+        min -- minimum wavelength value
+        max -- maximum wavelength value
+        nb_pts -- number of points to compute, default set to 100
+        """
+        gap = (max - min) / nb_pts
+        x_sellmeier = []
+        current_wl=min
+        for i in range(nb_pts+1):
+            x_sellmeier.append(current_wl)
+            current_wl += gap
+        y_sellmeier = []
+        for wl in x_sellmeier:
+            x=wl
+            n = eval(self.Formula)
+            y_sellmeier.append(n)
+        fig, ax = plt.subplots()
+        ax.plot(x_sellmeier, y_sellmeier)
+        ax.set(xlabel='wavelength (m)', ylabel='n',
+               title=f'Extinction coefficient graph of {self.__name__}')
+        ax.grid()
+        plt.ylim(0, 2)
+        plt.show()
+
 
     def __repr__(self):
         return self.__name__

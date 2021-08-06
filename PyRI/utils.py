@@ -20,3 +20,8 @@ def data_bank():
             material_sellmeier.append(material_s)
     print(f"Material with experimental data: {material_expdata}")
     print(f"Material with Sellmeier's formula: {material_sellmeier}")
+
+
+class Material(ExpData, Sellmeier):
+    def __init__(self, name):
+        super().__init__(name)

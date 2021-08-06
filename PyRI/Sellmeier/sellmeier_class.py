@@ -32,6 +32,9 @@ class Sellmeier:
 
         return(n)
 
+    def plot_sellmeier(name, min, max, nb_pts=100):
+        pass
+
     def __repr__(self):
         return self.__name__
 

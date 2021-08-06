@@ -44,6 +44,8 @@ def remove_sellmeier(name):
     """
     with open('PyRI/Data/meta_sellmeier.json', 'r+') as f:
         meta_sellmeier = json.load(f)
+        assert name in meta_sellmeier['sellmeier_formula'],\
+            "The material you are trying to remove is not in the local data."
         del meta_sellmeier['remote_sellmeier'][name]
         del meta_sellmeier['sellmeier_formula'][name]
     with open('PyRI/Data/meta_sellmeier.json', 'w') as f:

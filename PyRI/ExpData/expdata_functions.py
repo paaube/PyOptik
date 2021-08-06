@@ -65,10 +65,12 @@ def remove_data(name):
     Arguments:
     name -- name of the material to remove
     """
-    os.remove(os.path.join('PyRI/Data/npz', name + '.npz'))
     with open('PyRI/Data/meta_expdata.json', 'r+') as f:
         meta_expdata = json.load(f)
+        assert name in meta_expdata['local_data'], \
+            "The material you are trying to remove is not in the local data."
         del meta_expdata['remote_data'][name]
         del meta_expdata['local_data'][name]
+    os.remove(os.path.join('PyRI/Data/npz', name + '.npz'))
     with open('PyRI/Data/meta_expdata.json', 'w') as f:
         json.dump(meta_expdata, f)

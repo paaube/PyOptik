@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class ExpData:
@@ -93,6 +94,40 @@ class ExpData:
             n = n_inf+((n_sup-n_inf)*ratio)
 
             return float(n)
+
+    def plot_expdata(self, ri=True, ec=False):
+        if ri and not ec:
+            x_ri = self.ExpData['wl_n']
+            y_ri = self.ExpData['n']
+            fig, ax = plt.subplots()
+            ax.plot(x_ri, y_ri, label='n')
+            ax.set(xlabel='wavelength (m)', ylabel='n',
+                   title=f'Refractive index graph of {self.__name__}')
+            ax.grid()
+
+        if ec and not ri:
+            x_ec = self.ExpData['wl_k']
+            y_ec = self.ExpData['k']
+            fig, ax = plt.subplots()
+            ax.plot(x_ec, y_ec, label='k')
+            ax.set(xlabel='wavelength (m)', ylabel='k',
+                   title=f'Extinction coefficient graph of {self.__name__}')
+            ax.grid()
+
+        if ri and ec:
+            x_ri = self.ExpData['wl_n']
+            y_ri = self.ExpData['n']
+            x_ec = self.ExpData['wl_k']
+            y_ec = self.ExpData['k']
+            fig, ax = plt.subplots()
+            ax.plot(x_ri, y_ri, label='n')
+            ax.plot(x_ec, y_ec, label='k')
+            ax.set(xlabel='wavelength (m)', ylabel='n, k',
+                   title='Refractive index and extinction coefficient'
+                   f'graph of {self.__name__}')
+            ax.grid()
+        plt.legend()
+        plt.show()
 
     def __repr__(self):
         return self.__name__

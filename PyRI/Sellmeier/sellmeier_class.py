@@ -9,10 +9,12 @@ class Sellmeier:
 
     Arguments:
     name -- the name of the material you wish to import
+    unit -- unit use for the wavelength
     """
 
-    def __init__(self, name):
+    def __init__(self, name, unit = 1e-06):
         self.__name__ = name
+        self.unit = unit
 
         with open('PyRI/Data/meta_sellmeier.json', 'r+') as f:
             meta_sellmeier = json.load(f)
@@ -29,7 +31,7 @@ class Sellmeier:
         Arguments:
         wl -- wavelength
         """
-        x = wl
+        x = wl * self.unit / 1e-06
         n = eval(self.Formula)
 
         return(n)
@@ -43,6 +45,8 @@ class Sellmeier:
         max -- maximum wavelength value
         nb_pts -- number of points to compute, default set to 100
         """
+        min = min * self.unit / 1e-06
+        max = max * self.unit / 1e-06
         gap = (max - min) / nb_pts
         x_sellmeier = []
         current_wl=min

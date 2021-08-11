@@ -1,2 +1,2 @@
-from .expdata_class import *
-from .expdata_functions import *
+from PyRI.ExpData.expdata_class import *
+from PyRI.ExpData.expdata_functions import *

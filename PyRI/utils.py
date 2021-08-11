@@ -1,5 +1,5 @@
-from .ExpData import ExpData
-from .Sellmeier import Sellmeier
+from PyRI.ExpData import ExpData
+from PyRI.Sellmeier import Sellmeier
 import json
 
 

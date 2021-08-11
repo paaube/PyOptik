@@ -1,2 +1,2 @@
-from .sellmeier_class import *
-from .sellmeier_functions import *
+from PyRI.Sellmeier.sellmeier_class import *
+from PyRI.Sellmeier.sellmeier_functions import *

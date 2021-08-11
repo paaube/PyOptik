@@ -16,12 +16,12 @@ def load_online(url):
 
     if ['wl', 'k'] in df:
         index = int(np.where(df == 'wl')[0])
-        df = np.concatenate((df[:index], df[index+1:]), axis=1)
+        df = np.delete(df, index, axis=0)
 
-        data = {'wl_n': df[:, 0].astype(float),
-                'n': df[:, 1].astype(float),
-                'wl_k': df[:, 2].astype(float),
-                'k': df[:, 3].astype(float)}
+        data = {'wl_n': df[:index][:,0].astype(float),
+                'n': df[:index][:,1].astype(float),
+                'wl_k': df[index:][:,0].astype(float),
+                'k': df[index:][:,1].astype(float)}
 
     else:
         data = {'wl_n': df[:, 0].astype(float),

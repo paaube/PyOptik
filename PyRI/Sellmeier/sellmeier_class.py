@@ -22,7 +22,7 @@ class Sellmeier:
 
         self.Formula = meta_sellmeier['sellmeier_formula'][name]
 
-    def sellmeier_ri(self, wl):
+    def SellmeierRI(self, wl):
         """Returns the refractive index of the material given the wavelength
         used using Sellmeier's formula.
 
@@ -34,7 +34,7 @@ class Sellmeier:
 
         return(n)
 
-    def plot_sellmeier(self, min, max, nb_pts=100):
+    def PlotSellmeier(self, min, max, nb_pts=100):
         """Plots the refractive index as a function of the wavelength using
         Sellmeier's formula.
 

@@ -24,7 +24,7 @@ class ExpData:
         self.DirFilename = meta_expdata["local_data"][name]
         self.ExpData = np.load("PyRI/Data/npz/" + self.DirFilename)
 
-    def get_ri(self, wl):
+    def GetRI(self, wl):
         """Returns the refractive index of the material from the experimental
         data given the wavelength used.
 
@@ -58,7 +58,7 @@ class ExpData:
 
             return float(n)
 
-    def get_ec(self, wl):
+    def GetEC(self, wl):
         """Returns the extinction coefficient of the material from the
         experimental data given the wavelength used.
 
@@ -95,7 +95,7 @@ class ExpData:
 
             return float(n)
 
-    def plot_expdata(self, ri=True, ec=False):
+    def PlotExpData(self, ri=True, ec=True):
         """Plots the experimental data of the material.
 
         Arguments:

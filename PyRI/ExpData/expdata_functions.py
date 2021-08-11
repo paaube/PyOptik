@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-def load_online(url):
+def LoadOnline(url):
     """Loads the data from RefractiveIndex.INFO and returns it as a
     dictionary.
 
@@ -30,14 +30,14 @@ def load_online(url):
     return data
 
 
-def save_data(url, name, unit=1e-6):
+def SaveData(url, name, unit=1e-6):
     """Loads the data from RefractiveIndex.INFO and saves it in a json file.
 
     Arguments:
     url -- link to the csv file from RefractiveIndex.INFO
     name -- name of the material used as the index in the json file
     """
-    dict_data = load_online(url)
+    dict_data = LoadOnline(url)
     directory = os.path.join('PyRI/Data/npz', name)
 
     if 'k' not in dict_data:
@@ -59,7 +59,7 @@ def save_data(url, name, unit=1e-6):
         json.dump(meta_expdata, f, indent=4)
 
 
-def remove_data(name):
+def RemoveData(name):
     """Removes the experimental data stored locally for a given material.
 
     Arguments:

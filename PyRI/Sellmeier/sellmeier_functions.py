@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def load_sellmeier(url):
+def LoadSellmeier(url):
     """Loads Sellmeier's formula from RefractiveIndex.INFO.
 
     Arguments:
@@ -18,7 +18,7 @@ def load_sellmeier(url):
     return(sellmeier)
 
 
-def save_sellmeier(url, name):
+def SaveSellmeier(url, name):
     """Loads and saves Sellmeier's formula from RefractiveIndex.INFO in a
     json file.
 
@@ -26,7 +26,7 @@ def save_sellmeier(url, name):
     url -- link to the material's formula page
     filename -- name of the material used as the index in the json file
     """
-    sellmeier = load_sellmeier(url)
+    sellmeier = LoadSellmeier(url)
 
     with open('PyRI/Data/meta_sellmeier.json', 'r+') as f:
         meta_sellmeier = json.load(f)
@@ -36,7 +36,7 @@ def save_sellmeier(url, name):
         json.dump(meta_sellmeier, f, indent=4)
 
 
-def remove_sellmeier(name):
+def RemoveSellmeier(name):
     """Removes Sellmeier's formula stored locally for a given material.
 
     Arguments:

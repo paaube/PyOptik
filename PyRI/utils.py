@@ -3,7 +3,7 @@ from PyRI.Sellmeier import Sellmeier
 import json
 
 
-def data_bank():
+def DataBank():
     """Returns the materials for which the experimental data is available
     and the materials for which Sellmeier's formula is available
     """

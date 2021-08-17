@@ -5,10 +5,8 @@ import io
 import os
 import sys
 import numpy
-from shutil import rmtree
 import pathlib
-from setuptools import setup, Extension
-import subprocess
+from setuptools import setup, Extension, find_packages
 
 
 # Package meta-data.
@@ -19,6 +17,7 @@ EMAIL           = 'martin.poinsinet-de-sivry@polymtl.ca, pierre-alexandre.aube@p
 AUTHOR          = 'Martin Poinsinet de Sivry, Pierre-Alexandre Aubé',
 REQUIRES_PYTHON = '>3.8.0'
 VERSION         = '0.0.1'
+EXTRAS = {}
 
 # What packages are required for this module to be executed?
 REQUIRED = ['matplotlib', 'numpy']
@@ -58,7 +57,7 @@ setup(
     extras_require                = EXTRAS,
     dependency_links              = [],
     include_package_data          = True,
-    ext_modules                   = ext_modules,
+    ext_modules                   = None,
     license                       = 'MIT',
     classifiers=[
         # Trove classifiers

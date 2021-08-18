@@ -1,0 +1,4 @@
+include README.rst
+include PyOptical/Data/meta_expdata.json
+include PyOptical/Data/meta_sellmeier.json
+include PyOptical/Data/npz/*

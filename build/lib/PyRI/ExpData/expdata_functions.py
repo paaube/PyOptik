@@ -2,7 +2,8 @@ import json
 import os
 import pandas as pd
 import numpy as np
-
+from PyRI.Directories import *
+from os.path import join
 
 def LoadOnline(url):
     """Loads the data from RefractiveIndex.INFO and returns it as a
@@ -19,13 +20,13 @@ def LoadOnline(url):
         df = np.delete(df, index, axis=0)
 
         data = {'wl_n': df[:index][:,0].astype(float),
-                'n': df[:index][:,1].astype(float),
+                'n':    df[:index][:,1].astype(float),
                 'wl_k': df[index:][:,0].astype(float),
-                'k': df[index:][:,1].astype(float)}
+                'k':    df[index:][:,1].astype(float)}
 
     else:
         data = {'wl_n': df[:, 0].astype(float),
-                'n': df[:, 1].astype(float)}
+                'n':    df[:, 1].astype(float)}
 
     return data
 
@@ -38,23 +39,23 @@ def SaveData(url, name, unit=1e-6):
     name -- name of the material used as the index in the json file
     """
     dict_data = LoadOnline(url)
-    directory = os.path.join('PyRI/Data/npz', name)
-
+    directory = join(NPZPath, name)
+    print('#######', NPZPath)
     if 'k' not in dict_data:
         np.savez(directory,
-                 wl_n=dict_data['wl_n'] * unit,
-                 n=dict_data['n'])
+                 wl_n = dict_data['wl_n'] * unit,
+                 n    = dict_data['n'])
     else:
         np.savez(directory,
-                 wl_n=dict_data['wl_n'] * unit,
-                 n=dict_data['n'],
-                 wl_k=dict_data['wl_k'] * unit,
-                 k=dict_data['k'])
+                 wl_n = dict_data['wl_n'] * unit,
+                 n    = dict_data['n'],
+                 wl_k = dict_data['wl_k'] * unit,
+                 k    = dict_data['k'])
 
-    with open('PyRI/Data/meta_expdata.json', 'r+') as f:
-        meta_expdata = json.load(f)
+    with open(join(NPZPath, 'meta_expdata.json'), 'r+') as f:
+        meta_expdata                      = json.load(f)
         meta_expdata['remote_data'][name] = url
-        meta_expdata['local_data'][name] = name + '.npz'
+        meta_expdata['local_data'][name]  = name + '.npz'
         f.seek(0)
         json.dump(meta_expdata, f, indent=4)
 
@@ -65,12 +66,11 @@ def RemoveData(name):
     Arguments:
     name -- name of the material to remove
     """
-    with open('PyRI/Data/meta_expdata.json', 'r+') as f:
+    with open(join(DataPath, 'meta_expdata.json'), 'r+') as f:
         meta_expdata = json.load(f)
-        assert name in meta_expdata['local_data'], \
-            "The material you are trying to remove is not in the local data."
+        assert name in meta_expdata['local_data'], "The material you are trying to remove is not in the local data."
         del meta_expdata['remote_data'][name]
         del meta_expdata['local_data'][name]
     os.remove(os.path.join('PyRI/Data/npz', name + '.npz'))
-    with open('PyRI/Data/meta_expdata.json', 'w') as f:
+    with open(join(DataPath, 'meta_expdata.json'), 'w') as f:
         json.dump(meta_expdata, f)

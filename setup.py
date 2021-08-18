@@ -50,7 +50,7 @@ setup(
     author                        = AUTHOR,
     author_email                  = EMAIL,
     setup_requires                = ['numpy'],
-    python_requires               = '>=3.6',#REQUIRES_PYTHON,
+    python_requires               = '>=3.6',
     url                           = URL,
     packages                      = find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     install_requires              = REQUIRED,

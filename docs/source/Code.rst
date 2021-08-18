@@ -7,6 +7,6 @@ Source
 
 PlaneWave
 ~~~~~~~~~
-.. autoclass:: PyRI.ExpData.ExpData
+.. autoclass:: PyOptical.ExpData.ExpData
     :members:
     :inherited-members:

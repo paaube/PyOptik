@@ -29,7 +29,7 @@ PATH = os.path.join(os.path.dirname(__file__), '../..' )
 sys.path.insert(0, PATH)
 
 
-project   = 'PyRI'
+project   = 'PyOptic'
 copyright = '2021, Martin Poinsinet de Sivry-Houle, Pierre-Alexandre Aube'
 author    = 'Martin Poinsinet de Sivry-Houle, Pierre-Alexandre Aube'
 
@@ -149,7 +149,7 @@ html_logo = 'Logo.png'
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'PyRIdoc'
+htmlhelp_basename = 'PyOpticdoc'
 
 
 
@@ -179,7 +179,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'PyRI.tex', 'PyRI Documentation',
+    (master_doc, 'PyOptic.tex', 'PyOptic Documentation',
      'Martin Poinsinet de Sivry-Houle', 'manual'),
 ]
 
@@ -189,7 +189,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pyri', 'PyRI Documentation',
+    (master_doc, 'pyri', 'PyOptic Documentation',
      [author], 1)
 ]
 
@@ -200,8 +200,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'PyRI', 'PyRI Documentation',
-     author, 'PyRI', 'One line description of project.',
+    (master_doc, 'PyOptic', 'PyOptic Documentation',
+     author, 'PyOptic', 'One line description of project.',
      'Miscellaneous'),
 ]
 

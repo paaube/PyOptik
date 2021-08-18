@@ -3,7 +3,7 @@
 
 
 ..
-    PyMieSim's documentation
+    PyOptic's documentation
     =========================
 
 

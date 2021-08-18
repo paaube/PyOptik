@@ -1,4 +1,4 @@
 include README.rst
-include PyRI/Data/meta_expdata.json
-include PyRI/Data/meta_sellmeier.json
-include PyRI/Data/npz/*
+include PyOptical/Data/meta_expdata.json
+include PyOptical/Data/meta_sellmeier.json
+include PyOptical/Data/npz/*

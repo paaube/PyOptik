@@ -1,1 +1,1 @@
-PyOptical
+PyOptik

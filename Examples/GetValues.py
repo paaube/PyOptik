@@ -1,5 +1,5 @@
-from PyOptical import DataBank, ExpData
-from PyOptical.ExpData import SaveData
+from PyOptik import DataBank, ExpData
+from PyOptik.ExpData import SaveData
 
 print(DataBank())
 

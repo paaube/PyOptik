@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from os.path import join
 
-from PyOptik.Directories import *
+from PyOptik_.Directories import *
 
 class Sellmeier:
     """The Sellmeier class is used to compute the refractive index from the

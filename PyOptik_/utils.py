@@ -1,6 +1,6 @@
-from PyOptik.Directories import *
-from PyOptik.ExpData import ExpData
-from PyOptik.Sellmeier import Sellmeier
+from PyOptik_.Directories import *
+from PyOptik_.ExpData import ExpData
+from PyOptik_.Sellmeier import Sellmeier
 import os, json
 from os.path import join
 

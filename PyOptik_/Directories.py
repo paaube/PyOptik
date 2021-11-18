@@ -1,8 +1,8 @@
 import os
 
-import PyOptik
+import PyOptik_
 
-RootPath     = PyOptik.__path__[0]
+RootPath     = PyOptik_.__path__[0]
 
 ZeroPath     = os.path.dirname(RootPath)
 

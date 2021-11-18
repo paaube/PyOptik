@@ -1,3 +1,4 @@
-from PyRI.ExpData import *
-from PyRI.Sellmeier import *
-from PyRI.utils import *
+from PyOptik.ExpData import *
+from PyOptik.Sellmeier import *
+from PyOptik.utils import *
+from PyOptik.LocalDB import *

@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from os.path import join
 
-from PyOptik.Directories import *
+from PyOptik_.Directories import *
 
 def LoadOnline(url):
     """Loads the data from RefractiveIndex.INFO and returns it as a

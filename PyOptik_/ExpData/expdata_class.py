@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from os.path import join
 
-from PyOptik.Directories import *
+from PyOptik_.Directories import *
 
 class ExpData:
     """The ExpData class is used to import experimental data from the locally

@@ -31,9 +31,9 @@ class ExpData:
         min_wl = float(self.ExpData['wl_n'][0])
         max_wl = float(self.ExpData['wl_n'][-1])
         assert all(values<max_wl) and all(values>min_wl), \
-        f"The wavelength value you entered is out of range [{min_wl}, {max_wl}]. \
-        Range := {self.ExpData['wl_n'][0]: self.ExpData['wl_n'][-1]}; \
-        \nVisit the documentation to use Sellmeier's formula"
+        f"The wavelength value you entered is out of range [{min_wl}, {max_wl}]." + \
+        "Range := {self.ExpData['wl_n'][0]: self.ExpData['wl_n'][-1]};" + \
+        "\nVisit the documentation to use Sellmeier's formula"
 
 
     def GetRI(self, wl):
@@ -44,19 +44,19 @@ class ExpData:
         wl -- wavelength
         """
 
-        if isinstance(wl, float): wl = np.asrray( [wl] )
+        if isinstance(wl, float): wl = np.asarray( [wl] )
         self.VerifyRange(wl)
         x = self.ExpData['wl_n']
         y = self.ExpData['n']
 
         nInterp = np.interp(wl, x, y)
 
-        x = self.ExpData['wl_k']
-        y = self.ExpData['k']
+        if "wl_k" in self.ExpData:
+            kInterp = self.GetEC(wl)
 
-        kInterp = np.interp(wl, x, y)
+            nInterp = nInterp + 1j * kInterp
 
-        return nInterp + 1j * kInterp
+        return nInterp
 
 
     def GetEC(self, wl):
@@ -66,7 +66,7 @@ class ExpData:
         Arguments:
         wl -- wavelength
         """
-        if isinstance(wl, float): wl = np.asrray( [wl] )
+        if isinstance(wl, float): wl = np.asarray( [wl] )
         self.VerifyRange(wl)
         x = self.ExpData['wl_k']
         y = self.ExpData['k']

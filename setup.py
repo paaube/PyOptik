@@ -16,11 +16,11 @@ URL             = 'https://github.com/paaube/PyRI'
 EMAIL           = 'martin.poinsinet-de-sivry@polymtl.ca, pierre-alexandre.aube@polymtl.ca'
 AUTHOR          = 'Martin Poinsinet de Sivry, Pierre-Alexandre Aubé',
 REQUIRES_PYTHON = '>3.8.0'
-VERSION         = '0.0.6'
+VERSION         = '0.0.7'
 EXTRAS = {}
 
 # What packages are required for this module to be executed?
-REQUIRED = ['matplotlib', 'numpy']
+REQUIRED = ['matplotlib', 'numpy', 'bs4']
 
 here = os.path.abspath(os.path.dirname(__file__))
 

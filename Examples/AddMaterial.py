@@ -1,10 +1,10 @@
-from PyOptical import DataBank
-from PyOptical.ExpData import SaveData
+from PyOptik import DataBank
+from PyOptik.ExpData import SaveData
 
 print(DataBank())
 
-url = 'https://refractiveindex.info/data_csv.php?datafile=data/main/Al/Rakic.yml'
+url = 'https://refractiveindex.info/data_csv.php?datafile=data/main/Si/Aspnes.yml'
 
-SaveData(name='Aluminium', url=url)
+SaveData(name='SI', url=url)
 
 print(DataBank())

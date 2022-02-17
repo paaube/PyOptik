@@ -19,7 +19,8 @@ class ExpData:
 
         with open(join(DataPath, 'meta_expdata.json'), 'r+') as f:
             meta_expdata = json.load(f)
-            assert name in meta_expdata['local_data'], "Material not in the local data bank. To add it, visit the documentation."
+            assert name in meta_expdata['local_data'], \
+            "Material not in the local data bank. To add it, visit the documentation."
 
         self.DirFilename = meta_expdata["local_data"][name]
         self.ExpData = np.load( join(NPZPath, self.DirFilename) )
@@ -29,7 +30,11 @@ class ExpData:
 
         min_wl = float(self.ExpData['wl_n'][0])
         max_wl = float(self.ExpData['wl_n'][-1])
-        assert all(values<max_wl) and all(values>min_wl), f"The wavelength value you entered is out of range [{min_wl}, {max_wl}]. Visit the documentation to use Sellmeier's formula"
+        assert all(values<max_wl) and all(values>min_wl), \
+        f"The wavelength value you entered is out of range [{min_wl}, {max_wl}]." + \
+        "Range := {self.ExpData['wl_n'][0]: self.ExpData['wl_n'][-1]};" + \
+        "\nVisit the documentation to use Sellmeier's formula"
+
 
     def GetRI(self, wl):
         """Returns the refractive index of the material from the experimental
@@ -38,30 +43,21 @@ class ExpData:
         Arguments:
         wl -- wavelength
         """
-        if isinstance(wl, float): wl = np.array( [wl] )
+
+        if isinstance(wl, float): wl = np.asarray( [wl] )
         self.VerifyRange(wl)
+        x = self.ExpData['wl_n']
+        y = self.ExpData['n']
 
-        if wl in self.ExpData['wl_n']:
-            list_wl = list(self.ExpData['wl_n'])
-            wl_index = list_wl.index(wl)
+        nInterp = np.interp(wl, x, y)
 
-            return float(self.ExpData['n'][wl_index])
+        if "wl_k" in self.ExpData:
+            kInterp = self.GetEC(wl)
 
-        else:
-            ind_count = 0
-            wl_inf = self.ExpData['wl_n'][ind_count]
-            while wl_inf < wl:
-                ind_count += 1
-                wl_inf = self.ExpData['wl_n'][ind_count]
-            wl_inf = self.ExpData['wl_n'][(ind_count-1)]
-            wl_sup = self.ExpData['wl_n'][ind_count]
-            ratio = (wl - wl_inf)/(wl_sup - wl_inf)
+            nInterp = nInterp + 1j * kInterp
 
-            n_inf = self.ExpData['n'][(ind_count-1)]
-            n_sup = self.ExpData['n'][ind_count]
-            n = n_inf+((n_sup-n_inf)*ratio)
+        return nInterp
 
-            return float(n)
 
     def GetEC(self, wl):
         """Returns the extinction coefficient of the material from the
@@ -70,35 +66,17 @@ class ExpData:
         Arguments:
         wl -- wavelength
         """
-        assert 'wl_k' in self.ExpData, "Extinction coefficient unavailable for this material on RefractiveIndex.INFO"
+        if isinstance(wl, float): wl = np.asarray( [wl] )
+        self.VerifyRange(wl)
+        x = self.ExpData['wl_k']
+        y = self.ExpData['k']
 
-        min_wl = float(self.ExpData['wl_k'][0])
-        max_wl = float(self.ExpData['wl_k'][-1])
-        assert min_wl <= wl <= max_wl, "The wavelength value you entered is out of range."
+        yinterp = np.interp(wl, x, y)
 
-        if wl in self.ExpData['wl_k']:
-            list_wl = list(self.ExpData['wl_k'])
-            wl_index = list_wl.index(wl)
+        return yinterp
 
-            return float(self.ExpData['k'][wl_index])
 
-        else:
-            ind_count = 0
-            wl_inf = self.ExpData['wl_k'][ind_count]
-            while wl_inf < wl:
-                ind_count += 1
-                wl_inf = self.ExpData['wl_k'][ind_count]
-            wl_inf = self.ExpData['wl_k'][(ind_count-1)]
-            wl_sup = self.ExpData['wl_k'][ind_count]
-            ratio = (wl - wl_inf)/(wl_sup - wl_inf)
-
-            n_inf = self.ExpData['k'][(ind_count-1)]
-            n_sup = self.ExpData['k'][ind_count]
-            n = n_inf+((n_sup-n_inf)*ratio)
-
-            return float(n)
-
-    def PlotExpData(self, ri=True, ec=True):
+    def Plot(self, ri=True, ec=True):
         """Plots the experimental data of the material.
 
         Arguments:

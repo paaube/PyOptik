@@ -1,4 +1,8 @@
 from PyOptik import DataBank, ExpData
+<<<<<<< HEAD
+=======
+from PyOptik.ExpData import SaveData
+>>>>>>> local_database
 
 print(DataBank())
 

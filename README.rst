@@ -22,4 +22,4 @@ use it. For more examples, please visit the Examples section of the documentatio
 Installation
 ====
 
-pytohn setup.py install (or develop)
+python setup.py install (or develop)
